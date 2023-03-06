@@ -5,3 +5,186 @@ body {
     margin: 0px;
     padding: 0px;
 }
+
+.main-container {
+    min-width: 350px;
+}
+
+/*Header*/
+
+header img {
+    width: 300px;
+    height: auto;
+}
+
+/*Search*/
+
+.search-form input {
+    background-color: initial;
+    font-family: inherit;
+    font-size: 1.125rem;
+}
+
+.search-form input:focus {
+    outline: none;
+}
+
+.search-form button {
+    background-color: initial;
+}
+
+/*Filters*/
+
+.active-filters>div>div {
+    width: fit-content;
+    font-size: 0.875rem;
+    line-height: 1.3rem;
+}
+
+.active-filters>div span {
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.ingredient-color {
+    background-color: #3282F7;
+    color: #FFF;
+}
+
+.appliance-color {
+    background-color: #68D9A4;
+    color: #FFF;
+}
+
+.utensil-color {
+    background-color: #ED6454;
+    color: #FFF;
+}
+
+.dropdown button {
+    font-size: 1.125rem;
+    white-space: nowrap;
+}
+
+.dropdown .dropdown-list-container {
+    display: none;
+    position: relative;
+}
+
+.dropdown-list-container input {
+    width: 100%;
+    outline: none;
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+
+.dropdown-list-container input::placeholder {
+    color: #FFF;
+    opacity: 0.5;
+}
+
+.dropdown-list-container .bi-chevron-up,
+button .bi-chevron-down {
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.dropdown .dropdown-list {
+    width: 100%;
+    position: absolute;
+    top: 60px;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 15px;
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.dropdown .dropdown-list::-webkit-scrollbar {
+    width: 10px;
+}
+
+.dropdown .dropdown-list::-webkit-scrollbar-thumb {
+    background: #FFF;
+    border-radius: 10px;
+}
+
+.dropdown .dropdown-list li {
+    display: block;
+    cursor: pointer;
+    font-size: 1.125rem;
+}
+
+/*Recipes list*/
+
+.recipe-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 50px;
+}
+
+.img-container {
+    height: 190px;
+}
+
+.card-body .card-title,
+.card-body .recipe-time {
+    font-size: 1.125rem;
+}
+
+.recipe-time .bi-clock {
+    font-size: 1.2rem;
+}
+
+.card-body .ingredient-name,
+.card-body .ingredient-quantity,
+.card-body .recipe-description {
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+}
+
+.card-body .ingredients-list li {
+    line-height: 0.9rem;
+}
+
+.card-body .recipe-description {
+    font-family: 'Roboto', sans-serif;
+}
+
+/*Media queries for tablet (>768px)*/
+
+@media (min-width: 768px) {
+
+    /*Filters*/
+    .dropdown .dropdown-list {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 70px;
+    }
+
+    /*Recipes list*/
+    .recipe-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/*Media queries for desktop (>992px)*/
+
+@media (min-width: 992px) {
+
+    /*Filters*/
+    .dropdown .dropdown-list-container {
+        width: 600px;
+    }
+
+    .dropdown .dropdown-list {
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 50px;
+    }
+
+    /*Recipes list*/
+    .recipe-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
