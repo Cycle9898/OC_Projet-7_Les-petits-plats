@@ -26,6 +26,26 @@ class RecipeObject {
         }
     }
 
+    get formattedName() {
+        return this._name.toLowerCase();
+    }
+
+    get fullDescription() {
+        return this._description.toLowerCase();
+    }
+
+    get ingredientsOnly() {
+        return this._ingredients.map(ingredients => ingredients.ingredient.toLowerCase());
+    }
+
+    get applianceOnly() {
+        return this._appliance.toLowerCase();
+    }
+
+    get utensilsOnly() {
+        return this._utensils.map(utensil => utensil.toLowerCase());
+    }
+
     getIngredientsList() {
         //Create an unordered list of ingredients, quantities and units
         const ul = document.createElement("ul");
@@ -46,7 +66,7 @@ class RecipeObject {
                 } else {
                     return "";
                 }
-            }
+            };
 
             const li = document.createElement("li");
 
