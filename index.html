@@ -52,7 +52,8 @@
                             <div class="dropdown-list-container ingredient-color text-light rounded-top py-2 hidden">
                                 <div class="dropdown-search rounded-top d-flex py-2">
                                     <input class="ingredient-color border-0 rounded-top text-start px-4" type="text"
-                                        placeholder="Rechercher un ingrédient" aria-label="Rechercher un ingrédient">
+                                        placeholder="Rechercher un ingrédient" aria-label="Rechercher un ingrédient"
+                                        oninput="filterSearch(event);">
                                     <span class="bi bi-chevron-up py-2 px-4"></span>
                                 </div>
                                 <ul class="ingredients-dropdown-list dropdown-list ingredient-color rounded-bottom p-4">
@@ -67,7 +68,8 @@
                             <div class="dropdown-list-container appliance-color text-light rounded-top py-2 hidden">
                                 <div class="dropdown-search rounded-top d-flex py-2">
                                     <input class="appliance-color border-0 rounded-top text-start px-4" type="text"
-                                        placeholder="Rechercher un appareil" aria-label="Rechercher un appareil">
+                                        placeholder="Rechercher un appareil" aria-label="Rechercher un appareil"
+                                        oninput="filterSearch(event);">
                                     <span class="bi bi-chevron-up py-2 px-4"></span>
                                 </div>
                                 <ul class="appliances-dropdown-list dropdown-list appliance-color rounded-bottom p-4">
@@ -82,7 +84,8 @@
                             <div class="dropdown-list-container utensil-color text-light rounded-top py-2 hidden">
                                 <div class="dropdown-search rounded-top d-flex py-2">
                                     <input class="utensil-color border-0 rounded-top text-start px-4" type="text"
-                                        placeholder="Rechercher un ustensile" aria-label="Rechercher un ustensile">
+                                        placeholder="Rechercher un ustensile" aria-label="Rechercher un ustensile"
+                                        oninput="filterSearch(event);">
                                     <span class="bi bi-chevron-up py-2 px-4"></span>
                                 </div>
                                 <ul class="utensils-dropdown-list dropdown-list utensil-color rounded-bottom p-4">
@@ -106,6 +109,7 @@
     <!--Main script-->
     <script src="JS/pages/index.js"></script>
     <!--Utils-->
+    <script src="JS/utils/searchEngine.js"></script>
 </body>
 
 </html>
