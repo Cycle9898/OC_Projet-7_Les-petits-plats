@@ -10,7 +10,7 @@ function buildDOMCard(recipes) {
     recipeGrid.innerHTML = "";
 
     //Add built cards to the DOM or error message if there is none
-    if (recipes.length == 0) {
+    if (recipes.length === 0) {
         const p = document.createElement("p");
         p.classList.add("no-result");
         p.innerText = "Aucune recette ne correspond à votre recherche";
@@ -54,7 +54,7 @@ function fillFilterList(filterList, type) {
         li.classList.add("py-2", "d-flex", "justify-content-center", "align-items-center", "rounded");
         li.innerText = formatFilterTag(filter);
         ////Event listener to add an active filter tag
-        li.addEventListener("click", () => createFilterTag(li.innerText, type));
+        li.addEventListener("click", () => isFilterTagNeeded(li.innerText, type));
 
         //AppendChild() on the good filter
         switch (type) {
@@ -73,6 +73,40 @@ function fillFilterList(filterList, type) {
     });
 }
 
+//Check if a filter tag is already active or need to be added
+
+function isFilterTagNeeded(value, type) {
+    const createActiveFilter = () => {
+        createFilterTag(value, type);
+    };
+
+    switch (type) {
+        case "ingredients":
+            const activeIngredientsTags = Array.from(document.querySelectorAll(".active-ingredients-filters div p")).map(tag => tag.innerText.toLowerCase());
+
+            if (!activeIngredientsTags.includes(value.toLowerCase())) {
+                createActiveFilter();
+            }
+            break;
+        case "appliances":
+            const activeApplianceTag = document.querySelector(".active-appliances-filters div p");
+
+            if (!activeApplianceTag) {
+                createActiveFilter();
+            }
+            break;
+        case "utensils":
+            const activeUtensilsTags = Array.from(document.querySelectorAll(".active-utensils-filters div p")).map(tag => tag.innerText.toLowerCase());
+
+            if (!activeUtensilsTags.includes(value.toLowerCase())) {
+                createActiveFilter();
+            }
+            break;
+        default:
+            throw "Unknown filter type !";
+    }
+}
+
 //Create an active filter tag element
 
 function createFilterTag(value, type) {
@@ -86,7 +120,9 @@ function createFilterTag(value, type) {
     const crossButton = document.createElement("span");
     crossButton.classList.add("bi", "bi-x-circle", "ms-1");
     //Event listener to remove an active filter tag
-    crossButton.addEventListener("click", () => crossButton.parentNode.remove());
+    crossButton.addEventListener("click", () => {
+        crossButton.parentNode.remove();
+    });
 
     //DOM element
     const ingredientsFilterTags = document.querySelector(".active-ingredients-filters");
@@ -115,8 +151,9 @@ function createFilterTag(value, type) {
     }
 }
 
-//Event listeners on filter buttons to toggle filter lists visibility
+//Event listeners on filter buttons to toggle filters lists visibility
 
+//open filter tags list
 const filterButtons = document.querySelectorAll(".filter-buttons button");
 filterButtons.forEach(button => button.addEventListener("click", () => {
     button.classList.toggle("hidden");
@@ -124,35 +161,39 @@ filterButtons.forEach(button => button.addEventListener("click", () => {
     button.nextElementSibling.querySelector("input").focus();
 }));
 
+//close filter tags list
 const closeFilterButtons = document.querySelectorAll(".filter-buttons .bi-chevron-up");
 closeFilterButtons.forEach(button => button.addEventListener("click", () => {
     button.closest(".dropdown-list-container").classList.toggle("hidden");
     button.previousElementSibling.value = "";
+    button.closest(".dropdown-list-container").querySelectorAll("ul > li").forEach(li => li.classList.remove("hidden"));
     button.closest(".dropdown-list-container").previousElementSibling.classList.toggle("hidden");
 }));
 
+//close filter tags list when clicked outside of it
 document.addEventListener("click", (event) => {
     const allDropdowns = document.querySelectorAll(".filter-buttons > .dropdown");
     allDropdowns.forEach(dropdown => {
         if (!dropdown.querySelector(".dropdown-list-container").classList.contains("hidden") && (event.target.closest(".filter-buttons > .dropdown") != dropdown)) {
             dropdown.querySelector(".dropdown-list-container").classList.toggle("hidden");
             dropdown.querySelector("input").value = "";
+            dropdown.querySelectorAll("ul > li").forEach(li => li.classList.remove("hidden"));
             dropdown.querySelector("button").classList.toggle("hidden");
         }
     });
 });
 
-//Main function
+//Main function to display recipe cards and filters lists
 
-function init() {
-    //Build recipe cards on main page with fetched data
-    buildDOMCard(recipeObjectsArray);
+function init(recipeArray) {
+    //Build recipe cards on main page from data
+    buildDOMCard(recipeArray);
 
-    //Create Sets of ingredients, appliances and utensils from fetched data
+    //Create Sets of ingredients, appliances and utensils from data
 
-    const ingredientsSet = new Set(recipeObjectsArray.map((recipeObject) => recipeObject.ingredientsOnly).flat());
-    const appliancesSet = new Set(recipeObjectsArray.map(recipeObject => recipeObject.applianceOnly));
-    const utensilsSet = new Set(recipeObjectsArray.map(recipeObject => recipeObject.utensilsOnly).flat());
+    const ingredientsSet = new Set(recipeArray.map((recipeObject) => recipeObject.ingredientsOnly).flat());
+    const appliancesSet = new Set(recipeArray.map(recipeObject => recipeObject.applianceOnly));
+    const utensilsSet = new Set(recipeArray.map(recipeObject => recipeObject.utensilsOnly).flat());
 
     //Fill empty filter lists with previous Sets
     emptyFilterLists();
@@ -162,4 +203,4 @@ function init() {
     fillFilterList(utensilsSet, "utensils");
 }
 
-init();
+init(recipeObjectsArray);

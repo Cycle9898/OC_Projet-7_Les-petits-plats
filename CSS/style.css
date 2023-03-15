@@ -33,10 +33,6 @@ header img {
     outline: none;
 }
 
-.search-form button {
-    background-color: initial;
-}
-
 /*Filters*/
 
 .active-filters>div>div {
