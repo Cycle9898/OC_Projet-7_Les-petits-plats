@@ -78,6 +78,7 @@ function fillFilterList(filterList, type) {
 function isFilterTagNeeded(value, type) {
     const createActiveFilter = () => {
         createFilterTag(value, type);
+        globalSearch();
     };
 
     switch (type) {
@@ -122,6 +123,7 @@ function createFilterTag(value, type) {
     //Event listener to remove an active filter tag
     crossButton.addEventListener("click", () => {
         crossButton.parentNode.remove();
+        globalSearch();
     });
 
     //DOM element
