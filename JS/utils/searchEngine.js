@@ -60,12 +60,16 @@ function checkSearchBar(recipeArray) {
         };
 
         //Search
+
+        //Results array
         const filteredRecipeArray = [];
 
+        //All conditions in one function
         const conditions = (recipe) => isTextIncludedInSentence(recipe.formattedName) ||
             isTextInIngredientsArray(recipe.ingredientsOnly) ||
             isTextIncludedInSentence(recipe.fullDescription);
 
+        //Test all recipes and add in the results array, the ones that pass the test
         for (let recipe of recipeArray) {
             if (conditions(recipe)) {
                 filteredRecipeArray.push(recipe);
